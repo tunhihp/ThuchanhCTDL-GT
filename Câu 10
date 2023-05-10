@@ -1,72 +1,25 @@
 #include <iostream>
 using namespace std;
 
-#define MAX_SIZE 100 
-
-int queue[MAX_SIZE]; 
-int front = -1; 
-int rear = -1; 
-
-bool isEmpty() {
-    return front == -1 && rear == -1;
-}
-
-bool isFull() {
-    return rear == MAX_SIZE - 1;
-}
-
-void enqueue(int value) {
-    if (isFull()) {
-        cout << "Queue is full. Cannot enqueue " << value << endl;
+int tongSoChan(int arr[], int n) {
+    if (n == 0) {
+        return 0;
     } else {
-        if (isEmpty()) {
-            front = 0;
+        int sum = tongSoChan(arr, n - 1);
+        if (arr[n - 1] % 2 == 0) {
+            sum += arr[n - 1];
         }
-        rear++;
-        queue[rear] = value;
-        cout << "Enqueued " << value << " into queue." << endl;
-    }
-}
-
-void dequeue() {
-    if (isEmpty()) {
-        cout << "Queue is empty. Cannot dequeue." << endl;
-    } else if (front == rear) {
-        cout << "Dequeued " << queue[front] << " from queue." << endl;
-        front = -1;
-        rear = -1;
-    } else {
-        cout << "Dequeued " << queue[front] << " from queue." << endl;
-        front++;
-    }
-}
-
-void printQueue() {
-    if (isEmpty()) {
-        cout << "Queue is empty." << endl;
-    } else {
-        cout << "Queue: ";
-        for (int i = front; i <= rear; i++) {
-            cout << queue[i] << " ";
-        }
-        cout << endl;
+        return sum;
     }
 }
 
 int main() {
-    enqueue(41);
-    enqueue(23);
-    enqueue(4);
-    enqueue(14);
-    enqueue(56);
-    enqueue(1);
+    int arr[] = {2, 3, 6, 8, 1, 4, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
 
-    printQueue();
-
-    enqueue(55);
-    dequeue();
-
-    printQueue();
+    int sum = tongSoChan(arr, n);
+    cout << "Tong cac so chan trong mang la: " << sum << endl;
 
     return 0;
 }
+
